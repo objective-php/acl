@@ -1,0 +1,8 @@
+
+# IntelliJ project files
+.idea
+
+# Other files
+tests/_output
+vendor/
+.php_cs.cache
