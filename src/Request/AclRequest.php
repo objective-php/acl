@@ -24,21 +24,21 @@ class AclRequest implements AclRequestInterface
     protected $resource;
 
     /** @var  AclRequestContextInterface */
-    protected $contexts;
+    protected $context;
 
     /**
      * AclRequest constructor.
      *
-     * @param AclActorInterface $actor
-     * @param string $permission
-     * @param AclResourceInterface|null $resource
-     * @param AclRequestContextInterface|null $contexts
+     * @param AclActorInterface               $actor
+     * @param string                          $permission
+     * @param AclResourceInterface|null       $resource
+     * @param AclRequestContextInterface|null $context
      */
     public function __construct(
         AclActorInterface $actor,
         string $permission,
         AclResourceInterface $resource = null,
-        AclRequestContextInterface $contexts = null
+        AclRequestContextInterface $context = null
     ) {
         $this->setPermission($permission);
         $this->setActor($actor);
@@ -47,8 +47,8 @@ class AclRequest implements AclRequestInterface
             $this->setResource($resource);
         }
 
-        if ($contexts) {
-            $this->setContexts($contexts);
+        if ($context) {
+            $this->setContext($context);
         }
     }
 
@@ -134,21 +134,21 @@ class AclRequest implements AclRequestInterface
      *
      * @return AclRequestContextInterface
      */
-    public function getContexts(): AclRequestContextInterface
+    public function getContext(): AclRequestContextInterface
     {
-        return $this->contexts;
+        return $this->context;
     }
 
     /**
      * Set Contexts
      *
-     * @param AclRequestContextInterface $contexts
+     * @param AclRequestContextInterface $context
      *
      * @return AclRequestInterface
      */
-    public function setContexts(AclRequestContextInterface $contexts): AclRequestInterface
+    public function setContext(AclRequestContextInterface $context): AclRequestInterface
     {
-        $this->contexts = $contexts;
+        $this->context = $context;
 
         return $this;
     }

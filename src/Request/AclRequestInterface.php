@@ -23,5 +23,5 @@ interface AclRequestInterface
 
     public function hasContexts(): bool;
 
-    public function getContexts(): AclRequestContextInterface;
+    public function getContext(): AclRequestContextInterface;
 }
