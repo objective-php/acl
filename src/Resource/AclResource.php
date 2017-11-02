@@ -8,10 +8,11 @@
 
 namespace ObjectivePHP\Acl\Resource;
 
-
-use ObjectivePHP\Acl\Rule\AclRuleInterface;
-
-class AclResource implements AclRuleInterface
+/**
+ * Class AclResource
+ *
+ * @package ObjectivePHP\Acl\Resource
+ */
+abstract class AclResource implements AclResourceInterface
 {
-    
 }

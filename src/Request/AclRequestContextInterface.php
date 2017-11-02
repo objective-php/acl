@@ -8,8 +8,7 @@
 
 namespace ObjectivePHP\Acl\Request;
 
-
-interface AclRequestContextInterface extends \Traversable, \ArrayAccess
+interface AclRequestContextInterface extends \Iterator, \ArrayAccess
 {
 
 }

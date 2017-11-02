@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl;
 
-
 use ObjectivePHP\Acl\Actor\AclActorInterface;
 use ObjectivePHP\Acl\Filter\AclFilterInterface;
 use ObjectivePHP\Acl\Filter\AclFiltersFactoryInterface;

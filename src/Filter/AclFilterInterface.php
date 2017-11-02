@@ -8,10 +8,9 @@
 
 namespace ObjectivePHP\Acl\Filter;
 
-
 use ObjectivePHP\Acl\Request\AclRequestInterface;
 
 interface AclFilterInterface
 {
-    public function filter(AclRequestInterface $request);
+    public function filter(AclRequestInterface $request): bool;
 }

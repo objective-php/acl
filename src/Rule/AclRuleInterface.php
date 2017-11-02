@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl\Rule;
 
-
 interface AclRuleInterface
 {
     

@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl\Filter;
 
-
 use ObjectivePHP\Config\StackedDirective;
 
 class FilterServiceConfig extends StackedDirective

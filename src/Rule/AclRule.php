@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl\Rule;
 
-
 use ObjectivePHP\Acl\Filter\AclFilterInterface;
 
 class AclRule implements AclRuleInterface
