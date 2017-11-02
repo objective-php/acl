@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl\Exception;
 
-
 class InvalidAclFilterServiceSpecException extends Exception
 {
     

@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl\Filter;
 
-
 use Interop\Container\ContainerInterface;
 
 interface AclFiltersFactoryInterface extends ContainerInterface

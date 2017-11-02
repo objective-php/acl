@@ -8,8 +8,6 @@
 
 namespace Tests\ObjectivePHP\Acl\Filter;
 
-
-use Codeception\Test\Unit;
 use ObjectivePHP\Acl\Exception\InvalidAclFilterServiceSpecException;
 use ObjectivePHP\Acl\Filter\AclFilterInterface;
 use ObjectivePHP\Acl\Filter\AclFilterServiceSpecs;
@@ -17,8 +15,9 @@ use ObjectivePHP\Acl\Filter\AclFiltersFactory;
 use ObjectivePHP\Acl\Request\AclRequestInterface;
 use ObjectivePHP\ServicesFactory\Specs\ClassServiceSpecs;
 use ObjectivePHP\ServicesFactory\Specs\PrefabServiceSpecs;
+use PHPUnit\Framework\TestCase;
 
-class AclFiltersFactoryTest extends Unit
+class AclFiltersFactoryTest extends TestCase
 {
     public function testOnlyAclFilterOrPrefabServiceSpecsAreAllowed()
     {
@@ -31,7 +30,6 @@ class AclFiltersFactoryTest extends Unit
         $otherValidService = new PrefabServiceSpecs('second', new AclFactoryTestFilter());
     
         $factory->registerService($otherValidService);
-    
     }
     
     public function testServicesSpecsOtherThanAclFilterOrPrefabServiceSpecsAreRejected()
@@ -50,14 +48,13 @@ class AclFiltersFactoryTest extends Unit
         $invalidService = new PrefabServiceSpecs('whatever', new \stdClass);
         $factory->registerService($invalidService);
     }
-    
 }
 
-class AclFactoryTestFilter implements AclFilterInterface {
+class AclFactoryTestFilter implements AclFilterInterface
+{
     
-    public function filter(AclRequestInterface $request)
+    public function filter(AclRequestInterface $request): bool
     {
         // TODO: Implement filter() method.
     }
-    
 }

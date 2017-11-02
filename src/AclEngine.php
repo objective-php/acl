@@ -8,7 +8,6 @@
 
 namespace ObjectivePHP\Acl;
 
-
 use ObjectivePHP\Acl\Actor\AclActorInterface;
 use ObjectivePHP\Acl\Exception\InvalidAclFilterServiceSpecException;
 use ObjectivePHP\Acl\Filter\AclFilterInterface;
@@ -51,10 +50,9 @@ class AclEngine implements AclEngineInterface
         AclRequestContextInterface $context = null
     ): bool {
         
-        $request = new AclRequest($actor, $permission, $resource);
+        $request = new AclRequest($actor, $permission, $resource, $context);
         
         return $this->query($request);
-        
     }
     
     protected function query(AclRequestInterface $request): bool
@@ -65,7 +63,6 @@ class AclEngine implements AclEngineInterface
         
         /** @var AclRuleInterface $rule */
         foreach ($this->getRules() as $rule) {
-            
             if ($matcher->match($rule->getPermissionPattern(), $request->getPermission())) {
                 if ($filters = $rule->getFilters()) {
                     $match = true;
@@ -81,7 +78,6 @@ class AclEngine implements AclEngineInterface
                 }
                 
                 switch ($rule->getRule()) {
-                    
                     case AclRule::DENY:
                         if ($match) {
                             return false;
@@ -94,10 +90,7 @@ class AclEngine implements AclEngineInterface
                         }
                         break;
                 }
-                
             }
-            
-            
         }
         
         return $match;
@@ -106,8 +99,7 @@ class AclEngine implements AclEngineInterface
     /**
      * @return Matcher
      */
-    public
-    function getMatcher(): Matcher
+    public function getMatcher(): Matcher
     {
         
         if (is_null($this->matcher)) {
@@ -122,8 +114,7 @@ class AclEngine implements AclEngineInterface
      *
      * @return $this
      */
-    public
-    function setMatcher(
+    public function setMatcher(
         $matcher
     ) {
         $this->matcher = $matcher;
@@ -131,21 +122,18 @@ class AclEngine implements AclEngineInterface
         return $this;
     }
     
-    public
-    function getRules(): array
+    public function getRules(): array
     {
         return $this->rules;
     }
     
-    public
-    function registerRule(
+    public function registerRule(
         AclRuleInterface $rule
     ) {
         $this->rules[] = $rule;
     }
     
-    public
-    function registerFilter(
+    public function registerFilter(
         string $id,
         AclFilterInterface $filter
     ) {
@@ -153,16 +141,18 @@ class AclEngine implements AclEngineInterface
         try {
             $factory->registerService(new PrefabServiceSpecs($id, $filter));
         } catch (Exception $exception) {
-            throw new InvalidAclFilterServiceSpecException('Something went wrong when trying to register an ACL filter.',
-                0, $exception);
+            throw new InvalidAclFilterServiceSpecException(
+                'Something went wrong when trying to register an ACL filter.',
+                0,
+                $exception
+            );
         }
     }
     
     /**
      * @return AclFiltersFactory
      */
-    public
-    function getFiltersFactory(): AclFiltersFactoryInterface
+    public function getFiltersFactory(): AclFiltersFactoryInterface
     {
         return $this->filtersFactory;
     }
@@ -170,13 +160,11 @@ class AclEngine implements AclEngineInterface
     /**
      * @param AclFiltersFactory $filtersFactory
      */
-    public
-    function setFiltersFactory(
+    public function setFiltersFactory(
         AclFiltersFactoryInterface $filtersFactory
     ) {
         $this->filtersFactory = $filtersFactory;
         
         return $this;
     }
-    
 }

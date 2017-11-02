@@ -8,12 +8,11 @@
 
 namespace Tests\ObjectivePHP\Acl\Rule;
 
-
-use Codeception\Test\Unit;
 use ObjectivePHP\Acl\Filter\AclFilterInterface;
 use ObjectivePHP\Acl\Rule\AclRule;
+use PHPUnit\Framework\TestCase;
 
-class AclRuleTest extends Unit
+class AclRuleTest extends TestCase
 {
     public function testConstructor()
     {
@@ -34,4 +33,3 @@ class AclRuleTest extends Unit
         $this->assertSame($secondFilter, $rule->getFilters()[1]);
     }
 }
-

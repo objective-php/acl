@@ -8,10 +8,9 @@
 
 namespace ObjectivePHP\Acl\Actor;
 
-
 interface AclActorInterface
 {
-    public function getAclGroups() : iterable;
+    public function getAclGroups(): array;
     
     public function getAclId();
 }

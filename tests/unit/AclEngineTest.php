@@ -8,8 +8,6 @@
 
 namespace Tests\ObjectivePHP\Acl;
 
-
-use Codeception\Test\Unit;
 use ObjectivePHP\Acl\AclEngine;
 use ObjectivePHP\Acl\Actor\AclActorInterface;
 use ObjectivePHP\Acl\Exception\InvalidAclFilterServiceSpecException;
@@ -21,8 +19,9 @@ use ObjectivePHP\Acl\Resource\AclResourceInterface;
 use ObjectivePHP\Acl\Rule\AclRule;
 use ObjectivePHP\Matcher\Matcher;
 use ObjectivePHP\ServicesFactory\Specs\PrefabServiceSpecs;
+use PHPUnit\Framework\TestCase;
 
-class AclEngineTest extends Unit
+class AclEngineTest extends TestCase
 {
     public function testFilterRegistration()
     {
@@ -31,7 +30,8 @@ class AclEngineTest extends Unit
         $filtersFactory = $this->getMockBuilder(AclFiltersFactory::class)->getMock();
         $validFilter    = $this->getMockBuilder(AclFilterInterface::class)->getMock();
         
-        $filtersFactory->expects($this->once())->method('registerService')->with(new PrefabServiceSpecs('test',
+        $filtersFactory->expects($this->once())->method('registerService')->with(new PrefabServiceSpecs(
+            'test',
             $validFilter
         ))
         ;
@@ -39,7 +39,6 @@ class AclEngineTest extends Unit
         $acl->setFiltersFactory($filtersFactory);
         
         $acl->registerFilter('test', $validFilter);
-        
     }
     
     public function testDefaultMatcherIsInstantiatedOnDemandIfNeeded()
@@ -69,7 +68,6 @@ class AclEngineTest extends Unit
         
         $this->expectException(InvalidAclFilterServiceSpecException::class);
         $acl->registerFilter('test', $validFilter);
-        
     }
     
     public function testRuleRegistration()
@@ -80,7 +78,6 @@ class AclEngineTest extends Unit
         $acl->registerRule($rule);
         
         $this->assertSame($rule, $acl->getRules()[0]);
-        
     }
     
     public function testIsAllowed()
@@ -94,7 +91,6 @@ class AclEngineTest extends Unit
         $resource = $this->getMockBuilder(AclResourceInterface::class)->getMock();
         $this->assertTrue($acl->isAllowed($actor, 'resource.create'));
         $this->assertFalse($acl->isDenied($actor, 'resource.create'));
-    
     }
     
     public function testIsDenied()
@@ -109,7 +105,6 @@ class AclEngineTest extends Unit
         
         $this->assertFalse($acl->isAllowed($actor, 'resource.create', $resource));
         $this->assertTrue($acl->isDenied($actor, 'resource.create', $resource));
-    
     }
     
     public function testIsAllowedWithFilters()
@@ -117,7 +112,8 @@ class AclEngineTest extends Unit
         $acl = new AclEngine();
         
         $rule = new AclRule('resource.*', AclRule::ALLOW, new class implements AclFilterInterface {
-            public function filter(AclRequestInterface $request) : bool {
+            public function filter(AclRequestInterface $request) : bool
+            {
                 return false;
             }
         });
@@ -126,7 +122,6 @@ class AclEngineTest extends Unit
         $actor    = $this->getMockBuilder(AclActorInterface::class)->getMock();
         $this->assertFalse($acl->isAllowed($actor, 'resource.create'));
         $this->assertTrue($acl->isDenied($actor, 'resource.create'));
-        
     }
     
     public function testIsDeniedWithFilters()

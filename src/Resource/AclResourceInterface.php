@@ -8,11 +8,12 @@
 
 namespace ObjectivePHP\Acl\Resource;
 
+use ObjectivePHP\Acl\Actor\AclActorInterface;
 
 interface AclResourceInterface
 {
-    public function getOwner();
+    /** @return AclActorInterface */
+    public function getOwner(): AclActorInterface;
     
     public function getGroup();
-    
 }

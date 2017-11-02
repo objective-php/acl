@@ -8,36 +8,51 @@
 
 namespace ObjectivePHP\Acl\Request;
 
-
 use ObjectivePHP\Acl\Actor\AclActorInterface;
 use ObjectivePHP\Acl\Resource\AclResourceInterface;
 
 class AclRequest implements AclRequestInterface
 {
-    
+
     /** @var  string */
     protected $permission;
-    
+
     /** @var  AclActorInterface */
     protected $actor;
-    
+
     /** @var  AclResourceInterface */
     protected $resource;
-    
+
+    /** @var  AclRequestContextInterface */
+    protected $contexts;
+
     /**
      * AclRequest constructor.
      *
-     * @param string            $permission
      * @param AclActorInterface $actor
+     * @param string $permission
+     * @param AclResourceInterface|null $resource
+     * @param AclRequestContextInterface|null $contexts
      */
-    public function __construct(AclActorInterface $actor, string $permission, AclResourceInterface $resource = null)
-    {
+    public function __construct(
+        AclActorInterface $actor,
+        string $permission,
+        AclResourceInterface $resource = null,
+        AclRequestContextInterface $contexts = null
+    ) {
         $this->setPermission($permission);
         $this->setActor($actor);
-        if($resource) $this->setResource($resource);
+
+        if ($resource) {
+            $this->setResource($resource);
+        }
+
+        if ($contexts) {
+            $this->setContexts($contexts);
+        }
     }
-    
-    
+
+
     /**
      * @return string
      */
@@ -45,7 +60,7 @@ class AclRequest implements AclRequestInterface
     {
         return $this->permission;
     }
-    
+
     /**
      * @param string $permission
      *
@@ -54,10 +69,10 @@ class AclRequest implements AclRequestInterface
     public function setPermission($permission)
     {
         $this->permission = $permission;
-        
+
         return $this;
     }
-    
+
     /**
      * @return AclActorInterface
      */
@@ -65,7 +80,7 @@ class AclRequest implements AclRequestInterface
     {
         return $this->actor;
     }
-    
+
     /**
      * @param AclActorInterface $actor
      *
@@ -74,10 +89,10 @@ class AclRequest implements AclRequestInterface
     public function setActor($actor)
     {
         $this->actor = $actor;
-        
+
         return $this;
     }
-    
+
     /**
      * @return AclResourceInterface
      */
@@ -85,7 +100,7 @@ class AclRequest implements AclRequestInterface
     {
         return $this->resource;
     }
-    
+
     /**
      * @param AclResourceInterface $resource
      *
@@ -94,10 +109,10 @@ class AclRequest implements AclRequestInterface
     public function setResource($resource)
     {
         $this->resource = $resource;
-        
+
         return $this;
     }
-    
+
     /**
      * @return bool
      */
@@ -105,6 +120,36 @@ class AclRequest implements AclRequestInterface
     {
         return !empty($this->resource);
     }
-    
-    
+
+    /**
+     * @inheritdoc
+     */
+    public function hasContexts(): bool
+    {
+        return !empty($this->resource);
+    }
+
+    /**
+     * Get Contexts
+     *
+     * @return AclRequestContextInterface
+     */
+    public function getContexts(): AclRequestContextInterface
+    {
+        return $this->contexts;
+    }
+
+    /**
+     * Set Contexts
+     *
+     * @param AclRequestContextInterface $contexts
+     *
+     * @return AclRequestInterface
+     */
+    public function setContexts(AclRequestContextInterface $contexts): AclRequestInterface
+    {
+        $this->contexts = $contexts;
+
+        return $this;
+    }
 }
